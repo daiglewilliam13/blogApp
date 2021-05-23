@@ -1,0 +1,64 @@
+<%- include("partials/header") %>
+
+
+
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div class="parallax-container">
+        <div class="parallax-bg">
+            <div class="index-header">
+                <h1>Flavor Theory</h1>
+                <h5><em>A Blog by Mick Daigle</em></h5>
+            </div>
+        </div>
+        <div class="index-grid-container" id='gridContainer'>
+            <div class="index-grid-body">
+                <!-- <div class="listHeader">
+                    <h2>Latest Entries:</h2>
+                </div> -->
+                <%if(noResults){%>
+                    <div class="card">
+                        <p>No Results Found!</p>
+                    </div>
+                <%} else { %>
+                <div class="blogList">
+                    <%blogs.forEach(function(post, i){ %>
+                        <div class="card">
+                            <div class="blogInfo">
+                                <div class="blogTitle">
+                                    <a href='/blogs/show/<%=blogs[i]._id%>'>
+                                        <p>
+                                            <%= blogs[i].title%>
+                                        </p>
+                                    </a>
+                                    <hr id="line">
+                                </div>
+                                <div class="blogAuthor">
+                                    <% if(blogs[i].createdAt) { %>
+                                        <% const timeStamp=new Date(blogs[i].createdAt);%>
+                                            <% const options={year: 'numeric' , month: 'short' , day: '2-digit' };%>
+                                                <p>On
+                                                    <%=timeStamp.toLocaleDateString("en-US", options); %>
+                                                        By
+                                                        <%= blogs[i].author %>
+                                                            <%} else{}%>
+                                                </p>
+                                </div>
+                                <div class="blogTextSample">
+                                    <p>
+                                        <%= blogs[i].text.substring(0, 100) %>...
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="blogImage">
+                                <% if(blogs[i].images) { %>
+                                    <img src="/pictures/<%=blogs[i].images[0]%>" alt="">
+                                    <% } else {} %>
+                            </div>
+                        </div>
+                        <%}); %>
+                </div>
+                <%}%>
+            </div>
+            <%- include("partials/footer") %>

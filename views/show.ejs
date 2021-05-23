@@ -1,0 +1,39 @@
+<%- include("partials/header") %>
+
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <div class="show-grid-container">
+        <div class="show-header">
+            <div class="show-title">
+                <h1><%= blog.title %></h1>
+            </div>
+            <div class="show-bottom-border"></div>
+        </div>
+        <div class="show-blog-body">
+            <div class="show-meta-data">
+                <% const timeStamp = new Date(blog.createdAt); %>
+                <% const options ={year: 'numeric', month: 'short', day:'2-digit'};%>
+                <p>By <%=blog.author %> on <%=timeStamp.toLocaleDateString("en-US", options);%></p> 
+            </div>
+            <div class="show-blog-text">
+                <P><%=blog.text%></P>
+                <% blog.images.forEach(function (image, i){ %>
+                <p><img src="/pictures/<%=blog.images[i]%>" alt="" class="blogImage"></p>
+                <%});%>
+
+            </div>
+            <%if(blog.tags.length > 0) {%>
+            <div id="tags">
+                <p>Tags: <%=blog.tags%></p>
+            </div>
+            <%}%>
+            <% if(user.admin) {%>
+                <div id="edit-link">
+                <a href="/blogs/edit/<%=blog._id%>"><button>Edit</button></a>
+            </div>
+            <%}%>
+        </div>
+
+        <%- include("partials/footer") %>

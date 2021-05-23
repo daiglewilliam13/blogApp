@@ -1,0 +1,24 @@
+<%- include("partials/header") %>
+    <div class="show-grid-container">
+    <div class="create-post">
+        <h1>Create a Post</h1>
+        <div class="input-area">
+            <form action="/blogs/create/" method="POST" enctype="multipart/form-data">
+                <p>
+                    <input type="text" placeholder="Post Title" name="title" class="post-title" required> By <input type="text" value="Mickey" placeholder="Mickey" name="author" class="post-author">
+                </p>
+                <p>
+                    <textarea type="text" placeholder="Start Typing Your Post...." name="text" rows=25></textarea>
+                </p>
+                <p>
+                    <input type="file" accept="image/*" name="photo" value=" " multiple>
+                    <input type="text" placeholder="tags" name="tags" class="tags-form">
+                </p>
+                <p>
+                    <button type="submit" class="post-submit">Create Post!</button>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <%- include("partials/footer") %>

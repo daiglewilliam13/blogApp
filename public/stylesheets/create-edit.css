@@ -1,0 +1,36 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 15% auto 15%;
+    grid-template-rows: auto auto auto;
+}
+
+body {
+    background-image: url(../pictures/cuttingboard.jpg);
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #f2f2f2;
+    margin: 0;
+    font-family: 'Istok Web', sans-serif;
+}
+
+textarea {
+    width: 75%;
+    font-size: 20px;
+}
+
+.create-post {
+    margin: 5rem 0 0 10%;
+    color: #f2f2f2;
+    text-shadow: 0px 0px 5px black, 1px 1px 1px black;
+    font-size: 30px;
+    height: 400px;
+}
+
+.create-post h1 {
+    font-size: 45px;
+}
+
+input[type="text"] {
+    font-size: 30px;
+}

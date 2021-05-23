@@ -1,0 +1,477 @@
+/* create & update blog page */
+.create-post {
+    color: #f2f2f2;
+    text-shadow: 0px 0px 5px black, 1px 1px 1px black;
+    font-size: 30px;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    padding-top: 2rem;
+}
+textarea {
+    width: 90%;
+    font-size: 1.3rem;
+}
+
+*:focus{
+    outline:none;
+}
+.create-body {
+    background-image: url(../pictures/cuttingboard.jpg);
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #f2f2f2;
+    margin: 0;
+    font-family: 'Istok Web', sans-serif;
+    min-height: auto;
+}
+
+.post-title {
+    font-size: 2rem;
+}
+
+
+.post-author {
+    background:none;
+    border:none;
+    font-family: 'Istok Web', sans-serif;
+    color: #f2f2f2;
+    text-shadow: 0px 0px 5px black, 1px 1px 1px black;
+    font-size:2rem;
+    text-decoration: underline;
+    font-style: italic;
+
+}
+
+
+.post-submit {
+    background-color: #f2f2f2;
+    font-family: 'Istok Web', sans-serif;
+    font-size: 1.5rem;
+    padding: .5rem 1rem;
+}
+
+#edit-link {
+    padding: 0 0 0 2rem;
+
+}
+
+#tags p {
+    font-size: 1rem;
+    font-style: italic;
+    padding: 0 0 0 2rem;
+    margin: 0;
+}
+
+
+#edit-link button {
+    background-color: black;
+    color: goldenrod;
+    border: none;
+    font-size: 1rem;
+    padding: .5rem 1rem;
+    margin: 1rem 0 1rem 0;
+
+}
+
+#edit-link button:active {
+    border:none;
+}
+
+
+
+/*show page & login*/
+.show-bottom-border {
+    width: 0%;
+    border-bottom: 2px solid black;
+    animation: grow 1.2s 1s;
+    animation-fill-mode: forwards;
+    align-self: center;
+}
+
+.show-meta-data p {
+    margin: 0;
+    width: 100%;
+    padding: 0 0 0 2rem;
+    font-style: italic;
+    font-size: 1rem;
+}
+
+.show-blog-body {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    background-color: #f2f2f2;
+    opacity: .95;
+    min-height: 250px;
+    font-size: 1.5rem;
+
+}
+
+.show-grid-container {
+    display: grid;
+    grid-template-columns: 15% auto 15%;
+    grid-template-rows: auto auto auto;
+    background-image: url(../pictures/cuttingboard.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #f2f2f2;
+    margin: 0;
+    font-family: 'Istok Web', sans-serif;
+    min-height: 100vh;
+}
+
+.show-header {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #f2f2f2;
+    opacity: .95;
+    margin: 5rem 0 0 0;
+}
+
+.show-header h1 {
+    padding: 0 1.5rem;
+}
+
+.show-title {
+    font-size: 25px;
+    color: black;
+    margin: 1rem 0 0 0;
+    text-align: center;
+    width: 100%;
+}
+
+.show-meta-data {
+        width: 100%;
+        margin-top: 1.5rem;
+}
+
+.show-blog-text p::first-letter {
+    font-size:1.8rem;
+    text-transform: uppercase;
+    margin-left: 1rem;
+}
+
+.show-blog-text p {
+    padding: 0 2rem 2rem 2rem;
+    white-space: pre-line;
+}
+
+.show-bottom-nav{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+
+
+
+
+
+
+@keyframes grow {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 70%
+    }
+}
+/* bottom footer links */
+
+.footer-buttons a, .footer-buttons a:visited {
+    text-decoration: none;
+    color: goldenrod;
+    font-size: 2rem;
+}
+
+.footer-buttons {
+
+    text-align: center;
+    padding-top: 2rem;
+    color: #f2f2f2;
+}
+
+
+/* top navbar */
+
+.top-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: black;
+    opacity: .7;
+    border-bottom: 2px solid goldenrod;
+    transition: .2s;
+    z-index: 999;
+    display: block;
+    max-height: 15rem;
+
+}
+
+.top-navbar a,
+.top-navbar button {
+    display: block;
+    float: right;
+    padding: 1rem;
+    text-decoration: none;
+    color: goldenrod;
+    transition: .1s;
+    font-size: 1rem;
+    background: none;
+    text-transform: lowercase;
+    font-family: 'Istok Web', sans-serif;
+
+}
+
+.top-navbar button, .top-navbar button:active {
+    border: none;
+}
+
+.top-navbar button:hover {
+    color: white;
+}
+
+.top-navbar:hover {
+    opacity: 1;
+    transition: .2s;
+}
+
+.top-navbar a:hover {
+    color: #f2f2f2;
+    transition: .1s;
+}
+
+.search {
+    padding: 1rem;
+    display:block;
+    transition: .5s;
+    max-height: 15rem;
+    float:left;
+    color: goldenrod;
+    font-family: 'Istok Web', sans-serif;
+    transition-timing-function: ease-in-out;
+
+}
+
+.search button {
+    padding: 0 0 0 1rem;
+}
+
+#searchForm {
+    transition: .5s;
+    margin-bottom: 0;
+    background: none;
+    color: goldenrod;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    transition-timing-function: ease-in-out;
+}
+
+#searchForm:focus{
+    margin-bottom: 15rem;
+    transition: .8s;
+    transition-timing-function: ease-in-out;
+}
+
+
+/*index page*/
+
+.parallax-container {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+.parallax-bg {
+    background-image: url('../pictures/chickenwaffle.jpg');
+    background-position: top;
+    transform: translateZ(-5px) scale(1.1);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+.index-header {
+    padding: 15rem 0 0 10rem;
+    width: 100%;
+    font-size: 35px;
+}
+
+.index-header h1,
+h5 {
+    color: #f2f2f2;
+    margin: 0;
+    text-shadow: 0px 0px 15px black, 1px 1px 1px black;
+}
+
+.index-header h5 {
+    font-size: 25px;
+}
+
+html, body {
+    background-color: black;
+    margin: 0;
+    font-family: 'Istok Web', sans-serif;
+    min-height: 100%;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+.blogList {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    padding-top: 2rem;
+}
+
+.index-grid-container {
+    position: sticky;
+    display: grid;
+    grid-template-columns: 10% auto 10%;
+    grid-template-rows: auto;
+    background-image: url(../pictures/cuttingboard2.jpg);
+    box-shadow: 1px 1px 1px black, 0px 0px 10px black;
+}
+
+.sticky {
+    background-attachment: fixed;
+}
+
+.index-grid-body {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+
+.grid-bottom-nav {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 5;
+    grid-row-end: 6;
+}
+
+.title {
+    margin-top: 250px;
+    margin-left: 9%;
+    text-shadow: 2px 2px 2px black;
+}
+
+.card {
+    box-shadow: 1px 0px 20px -5px black;
+    margin-top: 1rem;
+    width: 75%;
+    padding: 1rem;
+    margin: 2rem;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    display: grid;
+    grid-template-columns: auto 200px;
+    transition: .2s;
+}
+
+.card:hover {
+    box-shadow: 1px 0px 25px -3px black;
+    transition: .2s;
+}
+
+.listHeader {
+    font-size: 25px;
+    color: #f2f2f2;
+    text-shadow: 2px 0px 2px black;
+    width: 75%;
+    background-color: white;
+    box-shadow: 2px 2px 5px -2px #f2f2f2;
+    padding-left: 1rem;
+}
+
+.blogInfo {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.blogImage {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    max-width:100%;
+}
+
+.blogTitle a {
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+}
+
+.blogTitle a:visited {
+    color: grey;
+}
+
+.blogTitle a:hover~#line {
+    width: 75%;
+    transition: .5s;
+    transition-timing-function: cubic-bezier();
+}
+
+.blogTitle hr {
+    width: 25%;
+    transition: .2s;
+    transition-timing-function: cubic-bezier();
+    margin: 0;
+}
+
+.blogAuthor p {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    font-style: oblique;
+}
+
+.blogTextSample p {
+    margin: 0;
+    font-size: 20px;
+}
+
+.blogImage {
+    overflow: hidden;
+}
+
+.blogImage img {
+    width: 200px;
+}
+
+@media screen and (max-width:1250px) {
+    .card {
+        box-shadow: 1px 0px 20px -5px black;
+        margin-top: 1rem;
+        width: 90%;
+        padding: 1rem;
+        margin: 2rem;
+        transition: .2s;
+    }
+    .grid-container {
+        display: grid;
+        grid-template-columns: 2% auto 2%;
+        grid-template-rows: auto;
+    }
+}
+
+@media screen and (max-width:375px) {
+    .blogImage {
+        display: none;
+    }
+    .card {
+        grid-template-columns: auto;
+    }
+    .header {
+        padding: 10rem 0 0 2rem;
+    }
+}

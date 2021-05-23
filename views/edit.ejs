@@ -1,0 +1,22 @@
+<%- include("partials/header") %>
+    <div class="show-grid-container">
+    <div class="create-post">
+        <h1>Edit Post</h1>
+        <div class="input-area">
+            <form action="/blogs/edit/<%=blog._id%>?_method=PUT" method="POST">
+                <p>
+                    <input type="text" value="<%=blog.title%>" name="title" class="post-title" required> By <input type="text" value="Mickey" placeholder="Mickey" name="author" class="post-author">
+                </p>
+                <p>
+                    <textarea type="text" placeholder="Start Typing Your Post...." name="text" rows=25><%=blog.text%></textarea>
+                </p>
+                <p>
+                    <button type="submit" class="post-submit">Update Post</button>
+                </p>
+            </form>
+            <form action="/blogs/delete/<%=blog._id%>?_method=DELETE" method="POST">
+            <button>Delete Post</button>
+            </form>
+        </div>
+    </div>
+<%- include("partials/footer") %>

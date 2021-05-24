@@ -27,7 +27,6 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
- console.log(process.env.SESSION_SECRET);
 //Image upload settings
 const storage = multer.diskStorage({
     destination: function(req,file, callback) {
@@ -72,6 +71,7 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 mongoose.connect(dbURL, { useNewUrlParser: true });
+
 
 //set view engine to ejs, removes need to specify '.ejs' file type for renders
 app.set('view engine', 'ejs');

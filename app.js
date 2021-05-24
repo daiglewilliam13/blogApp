@@ -6,7 +6,7 @@ const port           = 3000;
 const path           = require('path');
 const bodyParser     = require('body-parser');
 const mongoose       = require('mongoose');
-const dbURL          = process.env.DB_KEY_DEV;
+const dbURL          = process.env.DB_KEY_PROD;
 const methodOverride = require('method-override');
 const Blog           = require("./models/blogpost");
 const User           = require("./models/user");
@@ -246,7 +246,7 @@ app.post('/public/pictures', upload.single('photo'), (req, res) => {
     } else throw 'error'; 
 });
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT, () => {
     console.log(`App Started and listening at http://localhost:${port}`);
 });
 

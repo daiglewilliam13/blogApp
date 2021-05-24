@@ -246,7 +246,7 @@ app.post('/public/pictures', upload.single('photo'), (req, res) => {
     } else throw 'error'; 
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log(`App Started and listening at http://localhost:${port}`);
 });
 

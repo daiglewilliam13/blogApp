@@ -27,7 +27,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-
+ console.log(process.env.SESSION_SECRET);
 //Image upload settings
 const storage = multer.diskStorage({
     destination: function(req,file, callback) {
@@ -246,7 +246,7 @@ app.post('/public/pictures', upload.single('photo'), (req, res) => {
     } else throw 'error'; 
 });
 
-app.listen(port, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log(`App Started and listening at http://localhost:${port}`);
 });
 

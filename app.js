@@ -2,7 +2,6 @@
 require('dotenv').config();
 const express        = require('express');
 const app            = express();
-const port           = 3000;
 const path           = require('path');
 const bodyParser     = require('body-parser');
 const mongoose       = require('mongoose');
@@ -16,7 +15,6 @@ const bcrypt         = require('bcrypt');
 const { error }      = require('console');
 const multer         = require('multer');
 const { runInNewContext } = require('vm');
-
 
 
 //User Authentication. Just me, really.
@@ -72,14 +70,12 @@ mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 mongoose.connect(dbURL, { useNewUrlParser: true });
 
-
 //set view engine to ejs, removes need to specify '.ejs' file type for renders
 app.set('view engine', 'ejs');
 
 //packages that help with DB transactions
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-
 
 //links stylesheet directory
 app.use(express.static(__dirname + '/public'));
@@ -233,8 +229,6 @@ app.delete('/blogs/delete/:id', (req, res) => {
 });
 
 //IMAGE UPLOAD
-
-
 
 app.get('/upload', isLoggedIn, isAdmin, (req, res) =>{
         res.render('upload');

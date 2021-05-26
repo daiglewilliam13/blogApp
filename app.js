@@ -3,9 +3,10 @@ require('dotenv').config();
 const express        = require('express');
 const app            = express();
 const path           = require('path');
+const port           = 3000;
 const bodyParser     = require('body-parser');
 const mongoose       = require('mongoose');
-const dbURL          = process.env.DB_KEY_PROD;
+const dbURL          = process.env.DB_KEY_DEV;
 const methodOverride = require('method-override');
 const Blog           = require("./models/blogpost");
 const User           = require("./models/user");
@@ -15,6 +16,10 @@ const bcrypt         = require('bcrypt');
 const { error }      = require('console');
 const multer         = require('multer');
 const { runInNewContext } = require('vm');
+const {format}       = require('util');
+const {Storage} = require('@google-cloud/storage');
+const {storage}      = new Storage();
+
 
 
 //User Authentication. Just me, really.
@@ -25,18 +30,47 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-//Image upload settings
-const storage = multer.diskStorage({
-    destination: function(req,file, callback) {
-        callback(null, __dirname+'/public/pictures/');
+
+//Image upload settings 95ad95346978a3d
+// const storage = { ImgurStorage({ clientId: 'INPUT_YOUR_IMGUR_CLIENTID' })
+//     filename: function(req, file, callback){
+//         callback(null, Date.now() +"-"+ file.originalname );
+//     }
+// });
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+      fileSize: 5 * 1024 * 1024, // no larger than 5mb, you can change as needed.
     },
-    filename: function(req, file, callback){
-        callback(null, Date.now() +"-"+ file.originalname );
-    }
 });
-const upload = multer({storage: storage});
 
+const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
+// const blob = bucket.file(req.file.originalname);
+// const blobStream = blob.createWriteStream();
+app.post('/upload', multer.single('file'), (req, res, next) => {
+  if (!req.file) {
+    res.status(400).send('No file uploaded.');
+    return;
+  }
 
+  // Create a new blob in the bucket and upload the file data.
+  const blob = bucket.file(req.file.originalname);
+  const blobStream = blob.createWriteStream();
+
+  blobStream.on('error', err => {
+    next(err);
+  });
+
+  blobStream.on('finish', () => {
+    // The public URL can be used to directly access the file via HTTP.
+    const publicUrl = format(
+      `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+    );
+    res.status(200).send(publicUrl);
+  });
+
+  blobStream.end(req.file.buffer);
+});
 //middleware
 const escapeRegex = (text) => {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
@@ -234,7 +268,7 @@ app.get('/upload', isLoggedIn, isAdmin, (req, res) =>{
         res.render('upload');
 });
 
-app.post('/public/pictures', upload.single('photo'), (req, res) => {
+app.post('/public/pictures', upload.array('photo'), (req, res) => {
     if(req.file){
         res.json(req.file);
     } else throw 'error'; 

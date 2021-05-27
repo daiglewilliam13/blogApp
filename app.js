@@ -16,10 +16,6 @@ const bcrypt         = require('bcrypt');
 const { error }      = require('console');
 const multer         = require('multer');
 const { runInNewContext } = require('vm');
-const {format}       = require('util');
-const {Storage} = require('@google-cloud/storage');
-
-
 
 //User Authentication. Just me, really.
 

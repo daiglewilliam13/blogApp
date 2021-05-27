@@ -18,7 +18,6 @@ const multer         = require('multer');
 const { runInNewContext } = require('vm');
 const {format}       = require('util');
 const {Storage} = require('@google-cloud/storage');
-const {storage}      = new Storage();
 
 
 
@@ -31,46 +30,43 @@ app.use(session({
     saveUninitialized: true
 }));
 
-//Image upload settings 95ad95346978a3d
-// const storage = { ImgurStorage({ clientId: 'INPUT_YOUR_IMGUR_CLIENTID' })
-//     filename: function(req, file, callback){
-//         callback(null, Date.now() +"-"+ file.originalname );
-//     }
-// });
-const upload = multer({
-    storage: multer.memoryStorage(),
-    limits: {
-      fileSize: 5 * 1024 * 1024, // no larger than 5mb, you can change as needed.
-    },
-});
+//IMAGE UPLOAD SETTINGS
 
-const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
-// const blob = bucket.file(req.file.originalname);
-// const blobStream = blob.createWriteStream();
-app.post('/upload', multer.single('file'), (req, res, next) => {
-  if (!req.file) {
-    res.status(400).send('No file uploaded.');
-    return;
+const uploadImage = require('./helpers/helpers')
+const multerMid = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    // no larger than 5mb.
+    fileSize: 5 * 1024 * 1024,
+  },
+})
+
+app.disable('x-powered-by')
+app.use(multerMid.single('file'))
+app.use(express.json())
+
+app.post('/uploads', async (req, res, next) => {
+  try {
+    const myFile = req.file
+    const imageUrl = await uploadImage(myFile)
+    res
+      .status(200)
+      .json({
+        message: "Upload was successful",
+        data: imageUrl
+      })
+  } catch (error) {
+    next(error)
   }
+})
 
-  // Create a new blob in the bucket and upload the file data.
-  const blob = bucket.file(req.file.originalname);
-  const blobStream = blob.createWriteStream();
-
-  blobStream.on('error', err => {
-    next(err);
-  });
-
-  blobStream.on('finish', () => {
-    // The public URL can be used to directly access the file via HTTP.
-    const publicUrl = format(
-      `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-    );
-    res.status(200).send(publicUrl);
-  });
-
-  blobStream.end(req.file.buffer);
-});
+app.use((err, req, res, next) => {
+  res.status(500).json({
+    error: err,
+    message: 'Internal server error!',
+  })
+  next()
+})
 //middleware
 const escapeRegex = (text) => {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
@@ -108,7 +104,7 @@ mongoose.connect(dbURL, { useNewUrlParser: true });
 app.set('view engine', 'ejs');
 
 //packages that help with DB transactions
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
 //links stylesheet directory
@@ -193,7 +189,7 @@ app.get('/blogs/create', isLoggedIn, isAdmin, (req, res) => {
     }
 });
 
-app.post('/blogs/create/', isLoggedIn, isAdmin, upload.array('photo'), (req, res) => {
+app.post('/blogs/create/', isLoggedIn, isAdmin, (req, res) => {
     if(!req.session.admin){
         res.send("you need to be an admin to do that");
     } else {
@@ -264,15 +260,15 @@ app.delete('/blogs/delete/:id', (req, res) => {
 
 //IMAGE UPLOAD
 
-app.get('/upload', isLoggedIn, isAdmin, (req, res) =>{
-        res.render('upload');
-});
+// app.get('/upload', isLoggedIn, isAdmin, (req, res) =>{
+//         res.render('upload');
+// });
 
-app.post('/public/pictures', upload.array('photo'), (req, res) => {
-    if(req.file){
-        res.json(req.file);
-    } else throw 'error'; 
-});
+// app.post('/public/pictures', upload.array('photo'), (req, res) => {
+//     if(req.file){
+//         res.json(req.file);
+//     } else throw 'error'; 
+// });
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`App Started and listening at http://localhost:${port}`);

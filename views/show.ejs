@@ -20,9 +20,8 @@
             <div class="show-blog-text">
                 <P><%=blog.text%></P>
                 <% blog.images.forEach(function (image, i){ %>
-                <p><img src="/pictures/<%=blog.images[i]%>" alt="" class="blogImage"></p>
+                <p><img src="<%=blog.images[i]%>" alt="" class="blogImage"></p>
                 <%});%>
-
             </div>
             <%if(blog.tags.length > 0) {%>
             <div id="tags">

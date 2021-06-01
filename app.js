@@ -6,7 +6,7 @@ const path           = require('path');
 const port           = 3000;
 const bodyParser     = require('body-parser');
 const mongoose       = require('mongoose');
-const dbURL          = process.env.DB_KEY_DEV;
+const dbURL          = process.env.DB_KEY_PROD;
 const methodOverride = require('method-override');
 const Blog           = require("./models/blogpost");
 const User           = require("./models/user");
@@ -185,27 +185,28 @@ app.get('/blogs/create', isLoggedIn, isAdmin, (req, res) => {
     }
 });
 
-app.post('/blogs/create/', isLoggedIn, isAdmin, (req, res) => {
+app.post('/blogs/create/', isLoggedIn, isAdmin, async (req, res, next) => {
     if(!req.session.admin){
         res.send("you need to be an admin to do that");
-    } else {
-    let index, len;
-    const images = req.files ? [] : [];
-    for (index = 0, len = req.files.length; len>index; index++ ){
-        images.push(req.files[index].filename)
+    }  else {
+        console.log(req.body);
+        console.log(req.file);
+        const myFile = req.file 
+        const imageUrl = await uploadImage(myFile)
+        console.log(imageUrl)
+        const images = imageUrl ? imageUrl : "";
+        const title = req.body.title;
+        const author = req.body.author
+        const text = req.body.text;
+        const tags = req.body.tages ? req.body.tags.split(',', ', ') : "";
+        const createdAt = Date.now();
+        const newBlogPost = new Blog({ title: title, author: author, text: text, createdAt: createdAt, tags: tags, images: images });
+        newBlogPost.save((err, result) => {
+            if (err) console.log(err)
+            console.log(result);
+        });
+        res.redirect('/');
     }
-    const title = req.body.title;
-    const author = req.body.author;
-    const text = req.body.text;
-    const tags = req.body.tags.split(',', ', ');
-    const createdAt = Date.now();
-    const newBlogPost = new Blog({ title: title, author: author, text: text, createdAt: createdAt, tags: tags, images: images });
-    newBlogPost.save((err, result) => {
-        if (err) console.log(err)
-        console.log(result);
-    });
-    res.redirect('/blogs/show/' + newBlogPost._id);
-}
 });
 
 //READ BLOG POST 

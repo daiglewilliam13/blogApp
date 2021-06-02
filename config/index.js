@@ -1,16 +1,16 @@
 const Cloud = require('@google-cloud/storage')
 const path = require('path')
 const serviceKey = {
-  "type": process.ENV.type,
-  "project_id": process.ENV.project_id,
-  "private_key_id": process.ENV.private_key_id,
-  "private_key": process.ENV.private_key,
-  "client_email": process.ENV.client_email,
-  "client_id": process.ENV.client_id,
-  "auth_uri": process.ENV.AUTH_URI,
-  "token_uri": process.ENV.TOKEN_URI,
-  "auth_provider_x509_cert_url": process.ENV.AUTH_PROVIDER_X509_CERT_URL,
-  "client_x509_cert_url": process.ENV.CLIENT_X509_CERT_URL,
+  type : process.env.TYPE,
+  project_id: process.env.PROJECT_ID,
+  private_key_id: process.env.PRIVATE_KEY_ID,
+  private_key: process.env.PRIVATE_KEY,
+  client_email: process.env.CLIENT_EMAIL,
+  client_id: process.env.CLIENT_ID,
+  auth_uri: process.env.AUTH_URI,
+  token_uri: process.env.TOKEN_URI,
+  auth_provider_x509_cert_url: process.env.AUTH_PROVIDER_X509_CERT_URL,
+  client_x509_cert_url: process.env.CLIENT_X509_CERT_URL,
 }
 
 

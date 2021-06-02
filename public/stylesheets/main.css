@@ -431,7 +431,7 @@ html::-webkit-scrollbar {
 
 .blogAuthor p {
     margin-top: 1rem;
-    margin-bottom: 0;
+    margin-bottom: 1rem;
     font-style: oblique;
 }
 

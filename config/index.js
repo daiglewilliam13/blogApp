@@ -6,6 +6,6 @@ const { Storage } = Cloud
 const storage = new Storage({
   keyFilename: serviceKey,
   projectId: 'flavor-theory',
-})
+}) 
 
 module.exports = storage

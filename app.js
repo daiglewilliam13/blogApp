@@ -177,7 +177,7 @@ app.post('/blogs/create/', isLoggedIn, isAdmin, async (req, res, next) => {
         const tags = req.body.tags.split(',', ', '); //separate spaces/commas from tags before posting to DB 
         const createdAt = Date.now();
         const newBlogPost = new Blog({ title: title, author: author, text: text, createdAt: createdAt, tags: tags, images: images });
-        newBlogPost.save((err, result) => {
+        await newBlogPost.save((err, result) => {
             if (err) console.log(err)
             console.log(result);
         });

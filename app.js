@@ -190,7 +190,7 @@ app.post('/blogs/create/', isLoggedIn, isAdmin, async (req, res, next) => {
         res.send("you need to be an admin to do that");
     }  else {
         const myFile = req.file 
-        const imageUrl = await uploadImage(myFile)
+        const imageUrl = req.file ?  await uploadImage(myFile) : "";
         const images = imageUrl ? imageUrl : "";
         const title = req.body.title;
         const author = req.body.author

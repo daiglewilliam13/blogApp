@@ -174,10 +174,10 @@ app.post('/blogs/create/', isLoggedIn, isAdmin, async (req, res, next) => {
         const title = req.body.title;  //
         const author = req.body.author // keys/values for DB entry
         const text = req.body.text;    //
-        const tags = req.body.tags.split(',', ', '); //separate spaces/commas from tags before posting to DB 
+        const tags = req.body.tags.split(','); //separate spaces/commas from tags before posting to DB 
         const createdAt = Date.now();
         const newBlogPost = new Blog({ title: title, author: author, text: text, createdAt: createdAt, tags: tags, images: images });
-        await newBlogPost.save((err, result) => {
+        newBlogPost.save((err, result) => {
             if (err) console.log(err)
             console.log(result);
         });

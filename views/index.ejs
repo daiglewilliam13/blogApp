@@ -53,7 +53,7 @@
                             </div>
                             <div class="blogImage">
                                 <% if(blogs[i].images) { %>
-                                    <img src="<%=blogs[i].images[0]%>" alt="">
+                                    <a href='/blogs/show/<%=blogs[i]._id%>'><img src="<%=blogs[i].images[0]%>" alt=""></a>
                                     <% } else {} %>
                             </div>
                         </div>
